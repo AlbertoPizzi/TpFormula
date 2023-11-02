@@ -1,5 +1,6 @@
 package edu.austral.ingsis.math.composite;
 
+import edu.austral.ingsis.math.composite.function.*;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -13,8 +14,10 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction1() {
-        final Double result = 7d;
-
+        final Function one = new Number(1);
+        final Function six = new Number(6);
+        final Function function = new Sum(one, six);
+        final Double result = function.evaluate();
         assertThat(result, equalTo(7d));
     }
 
@@ -23,8 +26,10 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction2() {
-        final Double result = 6d;
-
+        Function twelve = new Number(12);
+        Function two = new Number(2);
+        Function div = new Div(twelve, two);
+        final Double result = div.evaluate();
         assertThat(result, equalTo(6d));
     }
 
@@ -33,8 +38,12 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction3() {
-        final Double result = 13.5;
-
+        Function nine = new Number(9);
+        Function two = new Number(2);
+        Function three = new Number(3);
+        Function div = new Div(nine, two);
+        Function mul = new Mul(div, three);
+        final Double result = mul.evaluate();
         assertThat(result, equalTo(13.5d));
     }
 
@@ -43,8 +52,12 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction4() {
-        final Double result = 20.25;
-
+        Function twentySeven = new Number(27);
+        Function six = new Number(6);
+        Function two = new Number(2);
+        Function div = new Div(twentySeven, six);
+        Function pow = new Pow(div, two);
+        final Double result = pow.evaluate();
         assertThat(result, equalTo(20.25d));
     }
 
@@ -53,8 +66,10 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction5() {
-        final Double result = 6d;
-
+        Function thirtySix = new Number(36);
+        Function two = new Number(2);
+        Function root = new Root(thirtySix, two);
+        final Double result = root.evaluate();
         assertThat(result, equalTo(6d));
     }
 
@@ -63,8 +78,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction6() {
-        final Double result = 136d;
-
+        Function oneHundredThirtySix = new Number(136);
+        final Double result = oneHundredThirtySix.evaluate();
         assertThat(result, equalTo(136d));
     }
 
@@ -73,8 +88,9 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction7() {
-        final Double result = 136d;
-
+        Function oneHundredThirtySix = new Number(-136);
+        Function abs = new Abs(oneHundredThirtySix);
+        final Double result = abs.evaluate();
         assertThat(result, equalTo(136d));
     }
 
@@ -83,8 +99,11 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction8() {
-        final Double result = 0d;
-
+        Function five = new Number(5);
+        Function eight = new Number(8);
+        Function sub = new Sub(five, five);
+        Function mul = new Mul(sub, eight);
+        final Double result = mul.evaluate();
         assertThat(result, equalTo(0d));
     }
 }

@@ -1,5 +1,7 @@
 package edu.austral.ingsis.math.visitor;
 
+import edu.austral.ingsis.math.visitor.visitors.*;
+import edu.austral.ingsis.math.visitor.function.*;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -11,14 +13,14 @@ import static org.hamcrest.Matchers.empty;
 
 
 public class ListVariablesTest {
+    final private static Visitor<List<String>> visitor = new ListVariablesVisitor();
 
     /**
      * Case 1 + 6
      */
     @Test
     public void shouldListVariablesFunction1() {
-        final List<String> result = Collections.emptyList();
-
+        final List<String> result =  visitor.visit(new Sum(new Number(1), new Number(6)));
         assertThat(result, empty());
     }
 
@@ -27,7 +29,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction2() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Div(new Number(12), new Variable("div")));
 
         assertThat(result, containsInAnyOrder("div"));
     }
@@ -37,7 +39,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction3() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Mul(new Div(new Number(9), new Variable("x")), new Variable("y")));
 
         assertThat(result, containsInAnyOrder("x", "y"));
     }
@@ -47,7 +49,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction4() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Pow(new Div(new Number(27), new Variable("a")), new Variable("b")));
 
         assertThat(result, containsInAnyOrder("a", "b"));
     }
@@ -57,7 +59,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction5() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Pow(new Variable("z"), new Div(new Number(1), new Number(2))));
 
         assertThat(result, containsInAnyOrder("z"));
     }
@@ -67,7 +69,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction6() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Sub(new Abs(new Variable("value")), new Number(8)));
 
         assertThat(result, containsInAnyOrder("value"));
     }
@@ -77,7 +79,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction7() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Sub(new Abs(new Variable("value")), new Number(8)));
 
         assertThat(result, containsInAnyOrder("value"));
     }
@@ -87,7 +89,7 @@ public class ListVariablesTest {
      */
     @Test
     public void shouldListVariablesFunction8() {
-        final List<String> result = Collections.emptyList();
+        final List<String> result = visitor.visit(new Mul(new Sub(new Number(5), new Variable("i")), new Number(8)));
 
         assertThat(result, containsInAnyOrder("i"));
     }
